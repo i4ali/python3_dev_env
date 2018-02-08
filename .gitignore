@@ -1,0 +1,6 @@
+*.txt
+.idea
+data/
+development/
+.vagrant
+__pycache__
