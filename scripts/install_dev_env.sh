@@ -1,5 +1,10 @@
 #!/bin/bash
 
+
+# enable password authentication
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+service ssh restart
+
 # update
 apt-get update
 
@@ -15,18 +20,14 @@ pip3 install virtualenvwrapper
 
 # # make development folder that will allow host OS to host projects natively
 mkdir /vagrant/development
-# chmod 777 /home/vagrant/development
-# chown vagrant /home/vagrant/development
-# chgrp vagrant /home/vagrant/development
+
 
 # make a remote virtual env folder to allow guest OS to create run environments natively
 mkdir /home/vagrant/~envs
 chown vagrant /home/vagrant/~envs
 chgrp vagrant /home/vagrant/~envs
 chmod 777 /home/vagrant/~envs
-# chmod 777 /home/vagrant/~envs
-# chown vagrant /home/vagrant/~envs
-# chgrp vagrant /home/vagrant/~envs
+
 
 # # configure samba
 # ## create development folder access to windows
@@ -41,17 +42,17 @@ chmod 777 /home/vagrant/~envs
 # echo -e "\tdirectory mask = 0755" >> /etc/samba/smb.conf
 
 # ## create home/vagrant folder access to windows 
-echo "[venv]" >> /etc/samba/smb.conf
-echo -e "\tpath = /home/vagrant/~envs" >> /etc/samba/smb.conf
-echo -e "\tread only = no" >> /etc/samba/smb.conf
-echo -e "\twriteable = yes" >> /etc/samba/smb.conf
-echo -e "\tpublic = yes" >> /etc/samba/smb.conf
-echo -e "\tbrowseable = yes" >> /etc/samba/smb.conf
-echo -e "\tguest ok = yes" >> /etc/samba/smb.conf
-echo -e "\tcreate mask = 0777" >> /etc/samba/smb.conf
-echo -e "\tdirectory mask = 0777" >> /etc/samba/smb.conf
+#echo "[venv]" >> /etc/samba/smb.conf
+#echo -e "\tpath = /home/vagrant/~envs" >> /etc/samba/smb.conf
+#echo -e "\tread only = no" >> /etc/samba/smb.conf
+#echo -e "\twriteable = yes" >> /etc/samba/smb.conf
+#echo -e "\tpublic = yes" >> /etc/samba/smb.conf
+#echo -e "\tbrowseable = yes" >> /etc/samba/smb.conf
+#echo -e "\tguest ok = yes" >> /etc/samba/smb.conf
+#echo -e "\tcreate mask = 0777" >> /etc/samba/smb.conf
+#echo -e "\tdirectory mask = 0777" >> /etc/samba/smb.conf
 
-service smbd restart
+#service smbd restart
 
 # configure virtual env for python3 by adding these lines to .profile
 echo "export WORKON_HOME=/home/vagrant/~envs" >> /home/vagrant/.profile
